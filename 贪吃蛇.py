@@ -153,7 +153,6 @@ def draw_hearts(hearts):
         draw_heart(screen, (heart_x, heart_y), heart_size, RED)
 
 
-# Generate a list of colors forming a gradient between `start_color` and `end_color`.
 def get_color_gradient(start_color, end_color, num_segments):
     gradient = []
     for i in range(num_segments):
@@ -275,12 +274,11 @@ while running:
         if hearts == 0:
             running = False
         else:
-            mines.remove(snake.body[0])  # Remove the mine that was hit
-            # Move the snake back to starting position without changing the length
-            snake.body.insert(0, snake.body[0])  # Temporary new head to maintain length
-            snake.move()  # Move will remove the last segment, thus keeping the length same
-            snake.body[0] = (5, 5)  # Reset head to starting position
-            snake.direction = (1, 0)  # Reset direction
+            mines.remove(snake.body[0]) 
+            snake.body.insert(0, snake.body[0])
+            snake.move()  
+            snake.body[0] = (5, 5)
+            snake.direction = (1, 0) 
 
     snake.move()
 
@@ -305,7 +303,6 @@ while running:
         food = get_random_position()
 
 
-    # Update bonus food state
     current_time = pygame.time.get_ticks()
     seconds_since_start = (current_time - game_start_time) // 1000
     if seconds_since_start % 10 == 0 and bonus_food is None:
@@ -316,7 +313,6 @@ while running:
         bonus_food = None
         bonus_food_visible = False
 
-    # Check for collision with bonus food
     if bonus_food and snake_collides_with_bonus_food(snake.body[0], bonus_food):
         score += 5
         snake.grow()
@@ -325,11 +321,9 @@ while running:
         if bonus_food_eaten % 3 == 0:  # Every 3 bonus foods eaten, increase hearts by 1
             hearts += 1
 
-    # Update bonus food visibility
     if bonus_food:
         bonus_food_visible = (current_time // 500) % 2 == 0
 
-    # Render game elements
     screen.blit(background_image, (0, 0))
     # 在每帧的开始
     for particle in particles[:]:
